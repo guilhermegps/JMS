@@ -32,9 +32,9 @@ public class TesteProdutorTopico {
 		
 		Pedido pedido = PedidoFactory.geraPedidoComValores();
 		
-		StringWriter xml = new StringWriter();
-		JAXB.marshal(pedido, xml);		
-		Message message = session.createTextMessage(xml.toString());
+//		StringWriter xml = new StringWriter();
+//		JAXB.marshal(pedido, xml);		
+		Message message = session.createObjectMessage(pedido);
 //			message.setBooleanProperty("ebook", false);
 		producer.send(message);
 		

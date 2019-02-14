@@ -8,11 +8,13 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
 import javax.jms.MessageListener;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
-import javax.jms.TextMessage;
 import javax.jms.Topic;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import br.com.teste.modelo.Pedido;
 
 public class TesteConsumidorTopicoComercial {
 	public static void main(String[] args) throws NamingException, JMSException {
@@ -33,10 +35,11 @@ public class TesteConsumidorTopicoComercial {
 			@Override
 			public void onMessage(Message message) {
 				
-				TextMessage textMessage = (TextMessage) message;
+				ObjectMessage activeMQObjectMessage = (ObjectMessage) message;
 				
 				try {
-					System.out.println("Recebendo msg: " + textMessage.getText());
+					Pedido pedido = (Pedido) activeMQObjectMessage.getObject();
+					System.out.println("Recebendo msg: " + pedido.toString());
 				} catch (JMSException e) {
 					e.printStackTrace();
 				}

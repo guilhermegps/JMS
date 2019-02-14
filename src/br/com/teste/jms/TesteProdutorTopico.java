@@ -26,7 +26,8 @@ public class TesteProdutorTopico {
 		
 		
 //		for (int i = 0; i < 100; i++) {
-			Message message = session.createTextMessage("<pedido><id>333</id></pedido>");
+			Message message = session.createTextMessage("<pedido><id>444</id></pedido>");
+//			message.setBooleanProperty("ebook", false);
 			producer.send(message);
 //		}
 		

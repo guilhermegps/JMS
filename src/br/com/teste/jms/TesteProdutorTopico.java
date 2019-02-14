@@ -10,7 +10,7 @@ import javax.jms.Session;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public class TesteProdutor {
+public class TesteProdutorTopico {
 	public static void main(String[] args) throws NamingException, JMSException {
 		
 		InitialContext context = new InitialContext();
@@ -20,17 +20,15 @@ public class TesteProdutor {
 		connection.start();
 		
 		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-		Destination fila = (Destination) context.lookup("financeiro");
+		Destination topico = (Destination) context.lookup("loja");
 		
-		MessageProducer producer = session.createProducer(fila);
+		MessageProducer producer = session.createProducer(topico);
 		
 		
-		for (int i = 0; i < 100; i++) {
-			Message message = session.createTextMessage("<pedido><id>"+i+"</id></pedido>");
+//		for (int i = 0; i < 100; i++) {
+			Message message = session.createTextMessage("<pedido><id>333</id></pedido>");
 			producer.send(message);
-		}
-
-//		new Scanner(System.in).next();
+//		}
 		
 		session.close();
 		connection.close();

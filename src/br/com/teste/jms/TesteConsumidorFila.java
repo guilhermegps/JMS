@@ -23,7 +23,7 @@ public class TesteConsumidorFila {
 		Connection connection = factory.createConnection();
 		connection.start();
 		
-		Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+		Session session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
 		Destination fila = (Destination) context.lookup("financeiro");
 		MessageConsumer consumer = session.createConsumer(fila);
 		
@@ -35,6 +35,7 @@ public class TesteConsumidorFila {
 				TextMessage textMessage = (TextMessage) message;
 				
 				try {
+					message.acknowledge();
 					System.out.println("Recebendo msg: " + textMessage.getText());
 				} catch (JMSException e) {
 					e.printStackTrace();
